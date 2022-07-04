@@ -1,9 +1,10 @@
 package com.hedgehog.cleanarchitecture.domain.usecase
 
 import com.hedgehog.cleanarchitecture.domain.model.UserName
+import com.hedgehog.cleanarchitecture.domain.repository.UserRepository
 
-class GetUserNameUseCase {
+class GetUserNameUseCase(private val userRepository: UserRepository) {
     fun execute(): UserName {
-        return UserName(firstName = "Nikita", secondName = "Bogatov")
+        return userRepository.getName()
     }
 }

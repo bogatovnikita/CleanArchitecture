@@ -1,13 +1,11 @@
 package com.hedgehog.cleanarchitecture.domain.usecase
 
 import com.hedgehog.cleanarchitecture.domain.model.SaveUserNameParam
+import com.hedgehog.cleanarchitecture.domain.repository.UserRepository
 
-class SaveUserNameUseCase {
+class SaveUserNameUseCase(private val userRepository: UserRepository) {
     fun execute(param: SaveUserNameParam): Boolean {
-        if (param.name.isEmpty()) {
-            return false
-        } else {
-            return true
-        }
+        val result: Boolean = userRepository.saveName(saveParam = param)
+        return result
     }
 }

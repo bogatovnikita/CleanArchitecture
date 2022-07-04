@@ -2,16 +2,31 @@ package com.hedgehog.cleanarchitecture.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hedgehog.cleanarchitecture.data.repository.UserRepositoryImplementation
 import com.hedgehog.cleanarchitecture.databinding.ActivityMainBinding
 import com.hedgehog.cleanarchitecture.domain.model.SaveUserNameParam
+import com.hedgehog.cleanarchitecture.domain.repository.UserRepository
 import com.hedgehog.cleanarchitecture.domain.usecase.GetUserNameUseCase
 import com.hedgehog.cleanarchitecture.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val getUserNameUseCase = GetUserNameUseCase()
-    private val saveUserNameUseCase = SaveUserNameUseCase()
+    private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
+        UserRepositoryImplementation(
+            context = applicationContext
+        )
+    }
+    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        GetUserNameUseCase(
+            userRepository
+        )
+    }
+    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        SaveUserNameUseCase(
+            userRepository
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
