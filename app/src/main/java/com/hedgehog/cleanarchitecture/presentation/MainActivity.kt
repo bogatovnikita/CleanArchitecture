@@ -3,6 +3,7 @@ package com.hedgehog.cleanarchitecture.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.hedgehog.cleanarchitecture.data.repository.UserRepositoryImplementation
+import com.hedgehog.cleanarchitecture.data.storage.shared_prefs.SharedPrefUserStorage
 import com.hedgehog.cleanarchitecture.databinding.ActivityMainBinding
 import com.hedgehog.cleanarchitecture.domain.model.SaveUserNameParam
 import com.hedgehog.cleanarchitecture.domain.repository.UserRepository
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
         UserRepositoryImplementation(
-            context = applicationContext
+            userStorage = SharedPrefUserStorage(context = applicationContext)
         )
     }
     private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
