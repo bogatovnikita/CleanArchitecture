@@ -1,23 +1,19 @@
 package com.hedgehog.cleanarchitecture.app
 
 import android.app.Application
-import com.hedgehog.cleanarchitecture.di.appModule
-import com.hedgehog.cleanarchitecture.di.dataModule
-import com.hedgehog.cleanarchitecture.di.domainModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
+import com.hedgehog.cleanarchitecture.di.AppComponent
+import com.hedgehog.cleanarchitecture.di.AppModule
+import com.hedgehog.cleanarchitecture.di.DaggerAppComponent
 
 class App : Application() {
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
-            androidLogger(Level.DEBUG)
-            androidContext(this@App)
-            modules(appModule, dataModule, domainModule)
-        }
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }

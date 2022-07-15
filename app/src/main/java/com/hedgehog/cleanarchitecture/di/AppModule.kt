@@ -1,12 +1,29 @@
 package com.hedgehog.cleanarchitecture.di
 
-import com.hedgehog.cleanarchitecture.presentation.MainViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import android.content.Context
+import com.hedgehog.cleanarchitecture.domain.usecase.GetUserNameUseCase
+import com.hedgehog.cleanarchitecture.domain.usecase.SaveUserNameUseCase
+import com.hedgehog.cleanarchitecture.presentation.MainViewModelFactory
+import dagger.Module
+import dagger.Provides
 
-val appModule = module {
+@Module
+class AppModule(private val context: Context) {
 
-    viewModel<MainViewModel> {
-        MainViewModel(getUserNameUseCase = get(), saveUserNameUseCase = get())
+    @Provides
+    fun provideContext(): Context {
+        return context
+    }
+
+    @Provides
+    fun provideMainViewModelFactory(
+        getUserNameUseCase: GetUserNameUseCase,
+        saveUserNameUseCase: SaveUserNameUseCase
+    ): MainViewModelFactory {
+        return MainViewModelFactory(
+            getUserNameUseCase = getUserNameUseCase,
+            saveUserNameUseCase = saveUserNameUseCase
+        )
+
     }
 }
