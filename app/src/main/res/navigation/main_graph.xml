@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/generalScreenFragment">
+
+    <fragment
+        android:id="@+id/generalScreenFragment"
+        android:name="com.hedgehog.cleanarchitecture.presentation.GeneralScreenFragment"
+        android:label="GeneralScreenFragment" >
+        <action
+            android:id="@+id/action_generalScreenFragment_to_secondExampleFragment"
+            app:destination="@id/secondExampleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondExampleFragment"
+        android:name="com.hedgehog.cleanarchitecture.presentation.fragments.SecondExampleFragment"
+        android:label="SecondExampleFragment" >
+        <argument
+            android:name="text"
+            app:argType="string" />
+    </fragment>
+</navigation>
